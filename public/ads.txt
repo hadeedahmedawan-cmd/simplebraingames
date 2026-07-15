@@ -1,0 +1,4 @@
+# Google AdSense ads.txt
+# Replace pub-0000000000000000 below with your real AdSense publisher id
+# (the digits after "ca-pub-" in your AdSense account) before publishing.
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
