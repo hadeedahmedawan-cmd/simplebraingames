@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteLayout } from "@/components/site/Layout";
+import { SITE } from "@/lib/site";
 
 function NotFoundComponent() {
   return (
@@ -70,29 +71,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Free online brain games and puzzles. Play Sudoku, 2048, Wordle, Snake, Tic Tac Toe, Minesweeper and more. No download, no sign-up." },
       { name: "author", content: "SimpleBrainGames" },
       { name: "keywords", content: "free brain games, puzzles online, sudoku, 2048, wordle, tic tac toe, connect 4, minesweeper, snake, memory match, brain training" },
-      { name: "google-adsense-account", content: "ca-pub-0000000000000000" },
+      ...(import.meta.env.VITE_ADSENSE_CLIENT
+        ? [{ name: "google-adsense-account", content: import.meta.env.VITE_ADSENSE_CLIENT }]
+        : []),
       { property: "og:site_name", content: "SimpleBrainGames" },
       { property: "og:type", content: "website" },
       { property: "og:title", content: "SimpleBrainGames — Free Brain Games & Puzzles Online" },
       { property: "og:description", content: "18 free brain games and puzzles. Play in your browser, no download, no sign-up." },
+      { property: "og:url", content: SITE },
+      { property: "og:image", content: `${SITE}/og-image.png` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "SimpleBrainGames — free brain games and puzzles online" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITE}/og-image.png` },
       { name: "theme-color", content: "#4f46e5" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: SITE },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { rel: "icon", href: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" },
     ],
     scripts: [
-      {
-        // Google AdSense loader — replace the client id with your real
-        // publisher id in src/components/site/AdSlot.tsx and this file.
-        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000",
-        async: true,
-        crossOrigin: "anonymous",
-      },
+      ...(import.meta.env.VITE_ADSENSE_CLIENT
+        ? [
+            {
+              src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${import.meta.env.VITE_ADSENSE_CLIENT}`,
+              async: true,
+              crossOrigin: "anonymous" as const,
+            },
+          ]
+        : []),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -100,7 +115,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "WebSite",
           name: "SimpleBrainGames",
           description: "Free brain games and puzzles online.",
-          potentialAction: { "@type": "SearchAction", target: "/games?q={q}", "query-input": "required name=q" },
+          url: SITE,
+          potentialAction: { "@type": "SearchAction", target: `${SITE}/games?q={q}`, "query-input": "required name=q" },
         }),
       },
     ],
