@@ -1,1 +1,1 @@
-export const SITE = "https://simplebraingames.lovable.app";
+export const SITE = "https://simplebraingames.xyz";
