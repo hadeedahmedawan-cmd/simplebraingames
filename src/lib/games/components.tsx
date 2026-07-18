@@ -768,25 +768,33 @@ export function Game2048({ onReset }: { onReset: () => void }) {
   const busy = useRef(false);
 
   const move = useCallback((dir: "up" | "down" | "left" | "right") => {
+    // Guard and lock must both happen synchronously, right here, before any
+    // React state update is even scheduled. Previously the lock (busy.current
+    // = true) was set *inside* the setTiles updater function, whose execution
+    // isn't guaranteed to happen synchronously before the next event fires.
+    // During fast play (arrow key repeat), a second keydown could slip through
+    // before the lock was actually set, causing two moves to both compute
+    // against the same starting board and each spawn their own tile — the
+    // "multiple numbers" bug. Setting the lock here, before any async work
+    // starts, closes that gap entirely.
     if (busy.current || gameOver) return;
-    setTiles(prev => {
-      const { moving, after, changed, gained } = move2048(prev, dir, N);
-      if (!changed) return prev;
-      busy.current = true;
-      setScore(s => s + gained);
-      // Phase A: animate slide (both merge partners move to same cell)
-      setTimeout(() => {
-        // Phase B: collapse to final board and spawn exactly one new tile
-        setTiles(() => {
-          const withNew = spawn2048(after, N);
-          if (!canMove2048(withNew, N)) setGameOver(true);
-          return withNew;
-        });
-        busy.current = false;
-      }, 170);
-      return moving;
-    });
-  }, [gameOver]);
+    const { moving, after, changed, gained } = move2048(tiles, dir, N);
+    if (!changed) return;
+
+    busy.current = true;
+    setTiles(moving);
+    setScore(s => s + gained);
+
+    // Phase B: collapse to final board and spawn exactly one new tile.
+    // This now lives outside any state updater function, as a plain
+    // side effect, rather than nested inside one.
+    setTimeout(() => {
+      const withNew = spawn2048(after, N);
+      setTiles(withNew);
+      if (!canMove2048(withNew, N)) setGameOver(true);
+      busy.current = false;
+    }, 170);
+  }, [tiles, gameOver]);
 
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
