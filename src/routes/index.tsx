@@ -4,6 +4,7 @@ import { GameCard } from "@/components/site/GameCard";
 import { AdSlot } from "@/components/site/AdSlot";
 import { FAQSection, buildFAQSchema } from "@/components/site/FAQ";
 import { GAMES, FEATURED_GAMES } from "@/lib/games/registry";
+import { SITE } from "@/lib/site";
 
 const HOME_FAQS = [
   { q: "Is SimpleBrainGames really free?", a: "Yes. Every game on the site is free to play, forever. We keep the lights on with unobtrusive ads." },
@@ -25,9 +26,9 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Play 18 free brain games and puzzles online: Sudoku, 2048, Wordle, Snake, Tic Tac Toe, Connect 4, Minesweeper and more. No download, no sign-up." },
       { property: "og:title", content: "SimpleBrainGames — 18 Free Brain Games & Puzzles Online" },
       { property: "og:description", content: "18 free browser games: Sudoku, 2048, Wordle, Snake, Tic Tac Toe and more. No download, no sign-up." },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: SITE },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: SITE }],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(buildFAQSchema(HOME_FAQS)) }],
   }),
   component: Home,
