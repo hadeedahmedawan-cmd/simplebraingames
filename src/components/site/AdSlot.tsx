@@ -4,17 +4,17 @@ import { useEffect, useRef } from "react";
 // Google AdSense slot.
 //
 // To go live:
-//   1. Replace ADSENSE_CLIENT below with your real publisher id
-//      (e.g. "ca-pub-1234567890123456"). The same value is also
-//      referenced in src/routes/__root.tsx for the loader script
-//      and the google-adsense-account meta tag.
+//   1. Set VITE_ADSENSE_CLIENT in your deployment's build environment
+//      variables (e.g. "ca-pub-1234567890123456"). This same variable
+//      is also read in src/routes/__root.tsx for the loader script
+//      and the google-adsense-account meta tag — one value, one place.
 //   2. Create ad units in your AdSense dashboard and copy each
 //      slot id into SLOT_IDS below (keyed by the `id` prop used
 //      on each <AdSlot /> across the app).
 //   3. Publish. Google will start crawling the placeholders.
 // ---------------------------------------------------------------
 
-export const ADSENSE_CLIENT = "ca-pub-0000000000000000";
+export const ADSENSE_CLIENT = import.meta.env.VITE_ADSENSE_CLIENT ?? "";
 
 // Map every <AdSlot id="..."> in the app to a real ad-unit slot id.
 // Anything left as an empty string will render a visible placeholder
