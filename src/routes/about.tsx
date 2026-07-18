@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { AdSlot } from "@/components/site/AdSlot";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -9,9 +10,9 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "About SimpleBrainGames: a free browser hub for classic brain games and puzzles. Why we built it, who runs it, and what we believe about clean games." },
       { property: "og:title", content: "About SimpleBrainGames" },
       { property: "og:description", content: "A free browser hub for classic brain games and puzzles. No sign-ups, no clutter." },
-      { property: "og:url", content: "/about" },
+      { property: "og:url", content: `${SITE}/about` },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: `${SITE}/about` }],
   }),
   component: About,
 });
