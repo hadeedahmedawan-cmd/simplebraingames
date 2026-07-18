@@ -6,6 +6,7 @@ import { AdSlot } from "@/components/site/AdSlot";
 import { GameClock } from "@/components/site/GameClock";
 import { FAQSection, buildFAQSchema } from "@/components/site/FAQ";
 import { getGame, getRelatedGames } from "@/lib/games/registry";
+import { SITE } from "@/lib/site";
 import { GAME_COMPONENTS } from "@/lib/games/components";
 
 export const Route = createFileRoute("/games/$slug")({
@@ -27,11 +28,11 @@ export const Route = createFileRoute("/games/$slug")({
         { property: "og:title", content: g.metaTitle },
         { property: "og:description", content: g.metaDescription },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: `/games/${params.slug}` },
+        { property: "og:url", content: `${SITE}/games/${params.slug}` },
         { name: "twitter:title", content: g.metaTitle },
         { name: "twitter:description", content: g.metaDescription },
       ],
-      links: [{ rel: "canonical", href: `/games/${params.slug}` }],
+      links: [{ rel: "canonical", href: `${SITE}/games/${params.slug}` }],
       scripts: [
         {
           type: "application/ld+json",
