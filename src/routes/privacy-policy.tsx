@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { AdSlot } from "@/components/site/AdSlot";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
@@ -8,9 +9,9 @@ export const Route = createFileRoute("/privacy-policy")({
       { title: "Privacy Policy — SimpleBrainGames" },
       { name: "description", content: "SimpleBrainGames privacy policy: what data we collect, how we use cookies and Google AdSense, and how to contact us with privacy questions." },
       { property: "og:title", content: "Privacy Policy — SimpleBrainGames" },
-      { property: "og:url", content: "/privacy-policy" },
+      { property: "og:url", content: `${SITE}/privacy-policy` },
     ],
-    links: [{ rel: "canonical", href: "/privacy-policy" }],
+    links: [{ rel: "canonical", href: `${SITE}/privacy-policy` }],
   }),
   component: Privacy,
 });
