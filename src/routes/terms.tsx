@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { AdSlot } from "@/components/site/AdSlot";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
@@ -8,9 +9,9 @@ export const Route = createFileRoute("/terms")({
       { title: "Terms of Use — SimpleBrainGames" },
       { name: "description", content: "Terms of use for SimpleBrainGames. Free entertainment, no warranty, and content usage rules." },
       { property: "og:title", content: "Terms of Use — SimpleBrainGames" },
-      { property: "og:url", content: "/terms" },
+      { property: "og:url", content: `${SITE}/terms` },
     ],
-    links: [{ rel: "canonical", href: "/terms" }],
+    links: [{ rel: "canonical", href: `${SITE}/terms` }],
   }),
   component: Terms,
 });
