@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://simplebraingames.lovable.app/sitemap.xml
+Sitemap: https://simplebraingames.xyz/sitemap.xml
