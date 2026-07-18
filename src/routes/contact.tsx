@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
 import { AdSlot } from "@/components/site/AdSlot";
+import { SITE } from "@/lib/site";
 
 const EMAIL = "hadeed.writes4u@gmail.com";
 
@@ -12,9 +13,9 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Contact SimpleBrainGames. Suggest a game, report a bug, or say hi. Email hadeed.writes4u@gmail.com or use the form." },
       { property: "og:title", content: "Contact SimpleBrainGames" },
       { property: "og:description", content: "Suggest a game, report a bug, or get in touch." },
-      { property: "og:url", content: "/contact" },
+      { property: "og:url", content: `${SITE}/contact` },
     ],
-    links: [{ rel: "canonical", href: "/contact" }],
+    links: [{ rel: "canonical", href: `${SITE}/contact` }],
   }),
   component: Contact,
 });
