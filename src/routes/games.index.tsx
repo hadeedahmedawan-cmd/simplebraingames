@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import { GameCard } from "@/components/site/GameCard";
 import { AdSlot } from "@/components/site/AdSlot";
 import { GAMES } from "@/lib/games/registry";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/games/")({
   head: () => ({
@@ -11,9 +12,9 @@ export const Route = createFileRoute("/games/")({
       { name: "description", content: "Browse all 18 free brain games and puzzles on SimpleBrainGames. Sudoku, 2048, Wordle, Snake, Tic Tac Toe, Connect 4, Minesweeper and more — no download." },
       { property: "og:title", content: "All 18 Free Brain Games — SimpleBrainGames" },
       { property: "og:description", content: "Every game on SimpleBrainGames in one place. Sudoku, 2048, Wordle-style word guess, Snake, and more." },
-      { property: "og:url", content: "/games" },
+      { property: "og:url", content: `${SITE}/games` },
     ],
-    links: [{ rel: "canonical", href: "/games" }],
+    links: [{ rel: "canonical", href: `${SITE}/games` }],
     scripts: [
       {
         type: "application/ld+json",
